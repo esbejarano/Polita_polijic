@@ -1,28 +1,13 @@
-//var ws = new WebSocket("ws://localhost:8000");
-//$(window).on('beforeunload', function(){ ws.close(); });
-//ws.onerror = function(event) { location.reload();}
-/*
+var ws = new WebSocket("ws://localhost:8000");
+
+$(window).on('beforeunload', function(){ ws.close(); });
+
+ws.onerror = function(event) { location.reload();}
+
 ws.onmessage = function(event)  { 
 	var message_received = event.data;
 	chat_add_message(message_received, false);
 };
-*/
-
-
-
-/*
-$(function() {
-	$('#chat_input').on('keypress', function(event) {
-		if (event.which === 13 && $(this).val() != ""){
-			var message = $(this).val();
-			$(this).val("");
-			chat_add_message(message, true);
-			//ws.send(message);
-		}
-	});
-});
-*/
-	
 
 function chat_add_message(message, isUser) {
 	var class_prefix = 'chatbox__body__message chatbox__body__message';
@@ -65,7 +50,7 @@ $(document).ready(function() {
 			var message = $(this).val();
 			$(this).val("");
 			chat_add_message(message, true);
-			//ws.send(message);
+			ws.send(message);
 		}
 	});
 	
