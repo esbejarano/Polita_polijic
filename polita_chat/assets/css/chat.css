@@ -80,6 +80,7 @@
     width: 300px;
     height: 400px;
     background-color: #fff;
+    margin-bottom: 10px
     font-family: 'Lato', sans-serif;
 
     -webkit-transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
