@@ -1,59 +1,96 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	    <meta name="description" content="AdminChatbotPolita">
-	    <meta name="author" content="esbg">
-		<title>Administrador Polita</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-		<link href="./css/admin.css" rel="stylesheet">
-		<link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="rendered-form">
-			<div class="title">Gestionar pregunta</div>
-			<input id="question" name="question" type="hidden">
-			<div class="fb-text form-group">
-				<label for="question" class="fb-text-label">
-					Pregunta
-					<span class="fb-required">*</span>
-				</label>
-				<input id="question" name="question" type="text" class="form-control" maxlength="100" required="required" aria-required="true">
-			</div>
-			<div class="fb-text form-group">
-				<label for="answer" class="fb-text-label">
-					Respuesta
-					<span class="fb-required">*</span>
-					<span class="tooltip-element" tooltip="Configura la posible respuesta a tu pregunta."></span>
-				</label>
-				<input type="text"  id="answer" name="answer" class="form-control"  title="Configura la posible respuesta a tu pregunta.">
-			</div>
-			<div class="fb-button form-group pull-right">
-				<button type="button" class="btn btn-primary" id="save" name="save"><span class="oi oi-circle-check"></span> Guardar</button>
-				<button type="button" class="btn btn-default" id="cancel" name="cancel">Cancelar</button>
-			</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="AdminChatbotPolita" />
+    <meta name="author" content="esbg" />
+    <title>Administrador Polita</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
+    <link href="./css/admin.css" rel="stylesheet" />
+    <link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet" />
+	<link href="./js/libs/dynatable/jquery.dynatable.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./js/libs/dynatable/dynatable-docs.css">
+  </head>
+  <body>
+    <div class="rendered-form col-12">
+		<div class="title">Gestionar pregunta</div>
+		<input id="question" name="question" type="hidden" />
+		<div class="fb-text form-group">
+			<label for="question" class="fb-text-label">
+			Pregunta <span class="fb-required">*</span>
+			</label>
+			<input id="question" name="question" type="text" class="form-control" maxlength="100" aria-required="true" required="required" />
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script>
-			function cleanForm() {
-				$("#question").val("");
-				$("#answer").val("");
-			}
+		<div class="fb-text form-group">
+			<label for="answer" class="fb-text-label">
+			Respuesta <span class="fb-required">*</span>
+			<span class="tooltip-element" tooltip="Configura la posible respuesta a tu pregunta."
+			></span>
+			</label>
+			<input type="text" id="answer" name="answer" class="form-control" title="Configura la posible respuesta a tu pregunta."/>
+		</div>
+		<div class="fb-button form-group pull-right">
+			<button type="button" class="btn btn-primary" id="save" name="save">
+			<span class="oi oi-circle-check"></span> Guardar
+			</button>
+			<button type="button" class="btn btn-default" id="cancel" name="cancel">
+			Cancelar
+			</button>
+		</div>
+	</div>
+	<br>
+	<div class="col-12">
+		<table id="my-final-table" class="table table-bordered">
+			<thead>
+				<th data-dynatable-column="name" class="dynatable-head">Band</th>
+				<th data-dynatable-column="song" class="dynatable-head">Hit</th>
+			</thead>
+		<tbody></tbody>
+		</table>
+	</div>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./js/libs/dynatable/jquery.dynatable.js"></script>
+    <script>
+		function cleanForm() {
+			$("#question").val("");
+			$("#answer").val("");
+		}
 
-			function saveInfo() {
+      	function saveInfo() {}
 
-			}
+		$("#save").click(function() {
+			saveInfo();
+		});
 
-			$("#save").click(function() {
-				saveInfo();
+		$("#cancel").click(function() {
+			cleanForm();
+		});
+	  
+	  	
+
+		$( document ).ready(function() {
+			var myRecords = [
+				{
+					"name": "Weezer",
+					"song": "El Scorcho"
+				},
+				{
+					"name": "Chevelle",
+					"song": "Family System"
+				}
+			];
+			$('#my-final-table').dynatable({
+				dataset: {
+					records: myRecords
+				}
 			});
-
-			$("#cancel").click(function() {
-				cleanForm();
-			});
-		</script>
-	</body>
+		});
+    </script>
+  </body>
 </html>
