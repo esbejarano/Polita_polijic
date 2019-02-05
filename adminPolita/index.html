@@ -1,96 +1,146 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="AdminChatbotPolita" />
-    <meta name="author" content="esbg" />
-    <title>Administrador Polita</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
-    <link href="./css/admin.css" rel="stylesheet" />
-    <link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet" />
-	<link href="./js/libs/dynatable/jquery.dynatable.css" rel="stylesheet" />
-	<link rel="stylesheet" href="./js/libs/dynatable/dynatable-docs.css">
-  </head>
-  <body>
-    <div class="rendered-form col-12">
-		<div class="title">Gestionar pregunta</div>
-		<input id="question" name="question" type="hidden" />
-		<div class="fb-text form-group">
-			<label for="question" class="fb-text-label">
-			Pregunta <span class="fb-required">*</span>
-			</label>
-			<input id="question" name="question" type="text" class="form-control" maxlength="100" aria-required="true" required="required" />
-		</div>
-		<div class="fb-text form-group">
-			<label for="answer" class="fb-text-label">
-			Respuesta <span class="fb-required">*</span>
-			<span class="tooltip-element" tooltip="Configura la posible respuesta a tu pregunta."
-			></span>
-			</label>
-			<input type="text" id="answer" name="answer" class="form-control" title="Configura la posible respuesta a tu pregunta."/>
-		</div>
-		<div class="fb-button form-group pull-right">
-			<button type="button" class="btn btn-primary" id="save" name="save">
-			<span class="oi oi-circle-check"></span> Guardar
-			</button>
-			<button type="button" class="btn btn-default" id="cancel" name="cancel">
-			Cancelar
-			</button>
-		</div>
-	</div>
-	<br>
-	<div class="col-12">
-		<table id="my-final-table" class="table table-bordered">
-			<thead>
-				<th data-dynatable-column="name" class="dynatable-head">Band</th>
-				<th data-dynatable-column="song" class="dynatable-head">Hit</th>
-			</thead>
-		<tbody></tbody>
-		</table>
-	</div>	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="./js/libs/dynatable/jquery.dynatable.js"></script>
-    <script>
-		function cleanForm() {
-			$("#question").val("");
-			$("#answer").val("");
-		}
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="AdminChatbotPolita" />
+        <meta name="author" content="esbg" />
+        <title>Administrador Polita</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous"/>
+        <link href="./css/admin.css" rel="stylesheet" />
+        <link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet" />
+        <link href="./js/libs/dynatable/jquery.dynatable.css" rel="stylesheet" />
+        <link href="./js/libs/dynatable/dynatable-docs.css" rel="stylesheet" />
+        <link href="./js/libs/jsconfirm/jquery-confirm.min.css" rel="stylesheet">
+    </head>
+    <body>        
+        
+        <div class="container">
+            <div class="row">
+                <button id="launch" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm">
+                    <span class="oi oi-plus"></span>
+                    Agregar pregunta
+                </button>
+            </div>
+            <br>            
+            <div class="row">
+                <table id="my-final-table" class="table table-bordered">
+                    <thead>
+                        <th data-dynatable-column="name" class="dynatable-head">Pregunta</th>
+                        <th data-dynatable-column="song" class="dynatable-head">Respuesta</th>
+                    </thead>
+                <tbody></tbody>
+                </table>
+            </div>	
+        </div>
+        <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header title">
+                            <h5 class="modal-title" id="modalFormLabel">Gestionar pregunta</h5>
+                            <button type="button" class="close" style="color: white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <input id="questionId" name="questionId" type="hidden" />
+                                    <div class="fb-text form-group">
+                                        <label for="question" class="fb-text-label">
+                                        Pregunta <span class="fb-required">*</span>
+                                        </label>
+                                        <input id="question" name="question" type="text" class="form-control" maxlength="100" aria-required="true" required="required" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="fb-text form-group">
+                                        <label for="answer" class="fb-text-label">
+                                        Respuesta <span class="fb-required">*</span>
+                                        <span class="tooltip-element" tooltip="Configura la posible respuesta a tu pregunta."
+                                        ></span>
+                                        </label>
+                                        <input type="text" id="answer" name="answer" class="form-control" title="Configura la posible respuesta a tu pregunta."/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="cancel" name="cancel" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="save" name="save">
+                                <span class="oi oi-circle-check"></span> Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="./js/libs/dynatable/jquery.dynatable.js"></script>
+        <script src="./js/libs/jsconfirm/jquery-confirm.min.js"></script>
+        <script>
+            function cleanForm() {
+                $("#question").val("");
+                $("#questionId").val("");
+                $("#answer").val("");
+            }
 
-      	function saveInfo() {}
 
-		$("#save").click(function() {
-			saveInfo();
-		});
+            function validateForm() {
+                var question = $("#question").val();
+                var answer = $("#answer").val();
+                return (question !== '' && answer !== '');
+            }
 
-		$("#cancel").click(function() {
-			cleanForm();
-		});
-	  
-	  	
+            function setAlert(title, content, color){
+                $.confirm({
+                    title: title,
+                    content: content,
+                    type: color,
+                    typeAnimated: true,
+                    buttons: {
+                        cerrar: function(){}
+                    }
+                });
+            }
 
-		$( document ).ready(function() {
-			var myRecords = [
-				{
-					"name": "Weezer",
-					"song": "El Scorcho"
-				},
-				{
-					"name": "Chevelle",
-					"song": "Family System"
-				}
-			];
-			$('#my-final-table').dynatable({
-				dataset: {
-					records: myRecords
-				}
-			});
-		});
-    </script>
-  </body>
+            function saveInfo() {
+                if (this.validateForm()) {
+                    cleanForm();
+                    setAlert('Exito!', 'Información gestionada correctamente', 'green');
+                    $('#modalForm').modal('toggle');
+                } else {
+                    setAlert('Cuidado!', 'Debe diligenciar la información correspondiente', 'orange');
+                }
+            }
+
+            $("#save").click(function() {
+                saveInfo();
+            });
+
+            $("#cancel").click(function() {
+                cleanForm();
+            });
+        
+            $( document ).ready(function() {
+                var myRecords = [
+                    {
+                        "name": "Weezer",
+                        "song": "El Scorcho"
+                    },
+                    {
+                        "name": "Chevelle",
+                        "song": "Family System"
+                    }
+                ];
+                $('#my-final-table').dynatable({
+                    dataset: {
+                        records: myRecords
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>
