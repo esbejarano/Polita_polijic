@@ -11,6 +11,7 @@
         <link href="./css/admin.css" rel="stylesheet" />
         <link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet" />
         <link href="./js/libs/jsconfirm/jquery-confirm.min.css" rel="stylesheet">
+		<link href="./js/libs/jquery-bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
     </head>
     <body>        
         
@@ -23,6 +24,17 @@
             </div>
             <br>            
             <div class="row">
+				<table id="gridPreguntas" class="table table-condensed table-hover table-striped">
+					<thead>
+						<tr>
+							<th data-column-id="questionId" data-visible="false" data-sortable="false">codigo</th>
+							<th data-column-id="question">Pregunta</th>
+							<th data-column-id="answer">Respuesta</th>
+							<th data-column-id="editQuestion" data-formatter="commandEdit" data-sortable="false">Editar</th>
+							<th data-column-id="deleteQuestion" data-formatter="commandDelete" data-sortable="false">Eliminar</th>
+						</tr>
+					</thead>
+				</table>
                 <!-- TODO aca va la tabla jquery bootgrid -->
             </div>	
         </div>
@@ -71,6 +83,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script src="./js/libs/jsconfirm/jquery-confirm.min.js"></script>
+		<script src="./js/libs/jquery-bootgrid/jquery.bootgrid.min.js"></script>
         <script>
             function cleanForm() {
                 $("#question").val("");
@@ -116,7 +129,38 @@
             });
         
             $( document ).ready(function() {
-                
+                $("#gridPreguntas").bootgrid();
+				/*
+					var gridExamenes = $("#gridExamenes").bootgrid({
+						ajax: true,
+						url: urlAjax,
+						rowCount: 10,
+						post: function () {
+							return { option: "consultarInformacionExamen" };
+						},
+						labels: { noResults: "No hay registros" },
+						formatters: {
+							"commandEdit": function(column, row) {
+								return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-pencil\" style=\"font-size: 15px;\"></span></button> ";
+							},
+							"commandDelete": function(column, row) {
+								return "<button type=\"button\" class=\"btn btn-xs btn-default command-delete \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-trash\" style=\"font-size: 15px;\"></span></button> ";
+							}
+						}
+					}).on("loaded.rs.jquery.bootgrid", function(){
+						gridExamenes.find(".command-edit").on("click", function(e){
+							var codigo = $(this).data("row-id");
+							// consultarExamenSeleccionado(codigo);
+						});
+						gridExamenes.find(".command-delete").on("click", function(e){
+							var codigo = $(this).data("row-id");
+							eliminarExamenSeleccionado(codigo);
+						});
+					});
+				*/
+				
+				$("#gridPreguntas-header").hide();
+				$(".actions").hide();
             });
         </script>
     </body>
