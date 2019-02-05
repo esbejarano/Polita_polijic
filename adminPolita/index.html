@@ -10,8 +10,6 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous"/>
         <link href="./css/admin.css" rel="stylesheet" />
         <link href="./open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet" />
-        <link href="./js/libs/dynatable/jquery.dynatable.css" rel="stylesheet" />
-        <link href="./js/libs/dynatable/dynatable-docs.css" rel="stylesheet" />
         <link href="./js/libs/jsconfirm/jquery-confirm.min.css" rel="stylesheet">
     </head>
     <body>        
@@ -25,13 +23,7 @@
             </div>
             <br>            
             <div class="row">
-                <table id="my-final-table" class="table table-bordered">
-                    <thead>
-                        <th data-dynatable-column="name" class="dynatable-head">Pregunta</th>
-                        <th data-dynatable-column="song" class="dynatable-head">Respuesta</th>
-                    </thead>
-                <tbody></tbody>
-                </table>
+                <!-- TODO aca va la tabla jquery bootgrid -->
             </div>	
         </div>
         <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel" aria-hidden="true">
@@ -78,7 +70,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <script src="./js/libs/dynatable/jquery.dynatable.js"></script>
         <script src="./js/libs/jsconfirm/jquery-confirm.min.js"></script>
         <script>
             function cleanForm() {
@@ -125,21 +116,7 @@
             });
         
             $( document ).ready(function() {
-                var myRecords = [
-                    {
-                        "name": "Weezer",
-                        "song": "El Scorcho"
-                    },
-                    {
-                        "name": "Chevelle",
-                        "song": "Family System"
-                    }
-                ];
-                $('#my-final-table').dynatable({
-                    dataset: {
-                        records: myRecords
-                    }
-                });
+                
             });
         </script>
     </body>
