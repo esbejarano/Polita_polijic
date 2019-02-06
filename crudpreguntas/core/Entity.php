@@ -8,6 +8,9 @@
         public function __construct($table)
         {
             $this->table = (string) $table;
+
+            require_once './Conection.php';
+
             $this->conection = new Conection();
             $this->db = $this->conection->conect();
         }
@@ -23,32 +26,36 @@
         public function getAll() {
             $query = $this->db->query("SELECT * FROM " . $this->table . " ORDER BY id DESC");
             
-            $resultSet = array();
+            $result = array();
             while ($row = $query->fetch_object()) {
-                array_push($resultSet, $row);
+                array_push($result, $row);
             }
 
-            return $resultSet;
+            return $result;
         }
 
         public function getById($id) {
             $query = $this->db->query("SELECT * FROM " . $this->table . " WHERE id = '" .$id. "'");
             
-            $resultSet = array();
+            $result = array();
             if ($row = $query->fetch_object()) {
-                $resultSet =  $row;
+                $result =  $row;
             }
-            return $resultSet;
+            return $result;
         }
 
         public function getBy($column, $value) {
             $query = $this->db->query("SELECT * FROM " . $this->table . " WHERE " . $column . " = '" . $value . "'");
             
-            $resultSet = array();
+            $result = array();
             if ($row = $query->fetch_object()) {
-                $resultSet =  $row;
+                $result =  $row;
             }
-            return $resultSet;
+            return $result;
+        }
+
+        public function deleteById($id) {
+            $query  = $this->db->query("DELETE FROM " . $this->table . "WHERE id = '" . $id . "'");
         }
     }
 

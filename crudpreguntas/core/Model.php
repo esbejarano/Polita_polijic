@@ -20,7 +20,7 @@
                         array_push($resultSet, $row);
                     }
                 } elseif ( $row = $result->num_rows == 1) {
-                    $resultSet = $row;
+                    array_push($resultSet, $row);
                 } else {
                     $resultSet = true;
                 }
