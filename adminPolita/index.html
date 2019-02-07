@@ -136,6 +136,9 @@
                                     cleanForm();
                                     setAlert('Exito!', 'Información gestionada correctamente', 'green');
                                     $('#modalForm').modal('toggle');
+                                    $("#gridPreguntas").bootgrid("reload");
+                                    $("#gridPreguntas-header").hide();
+				                    $(".actions").hide();
                                 } else {
                                     setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
                                 }
@@ -175,16 +178,21 @@
                     labels: { noResults: "No hay registros" },
                     formatters: {
                         "commandEdit": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-pencil\" style=\"font-size: 15px;\"></span></button> ";
+                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit \" data-row-id=\"" + row.id_qa + "\" data-row-question=\"" + row.ds_question + "\" data-row-answer=\"" + row.ds_answer + "\" ><span class=\"oi oi-pencil\" style=\"font-size: 15px;\"></span></button> ";
                         },
                         "commandDelete": function(column, row) {
-                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-delete \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-trash\" style=\"font-size: 15px;\"></span></button> ";
+                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-delete \" data-row-id=\"" + row.id_qa + "\"><span class=\"oi oi-trash\" style=\"font-size: 15px;\"></span></button> ";
                         }
                     }
                 }).on("loaded.rs.jquery.bootgrid", function(){
                     gridPreguntas.find(".command-edit").on("click", function(e){
-                        var codigo = $(this).data("row-id");
-                        // consultarExamenSeleccionado(codigo);
+                        var id = $(this).data("row-id");
+                        var question = $(this).data("row-question");
+                        var answer = $(this).data("row-answer");
+                        $("#question").val(question);
+                        $("#questionId").val(id);
+                        $("#answer").val(answer);
+                        $('#modalForm').modal('toggle');
                     });
                     gridPreguntas.find(".command-delete").on("click", function(e){
                         var codigo = $(this).data("row-id");
