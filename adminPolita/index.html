@@ -27,9 +27,9 @@
 				<table id="gridPreguntas" class="table table-condensed table-hover table-striped">
 					<thead>
 						<tr>
-							<th data-column-id="questionId" data-visible="false" data-sortable="false">codigo</th>
-							<th data-column-id="question">Pregunta</th>
-							<th data-column-id="answer">Respuesta</th>
+							<th data-column-id="id_qa" data-visible="false" data-sortable="false">codigo</th>
+							<th data-column-id="ds_question">Pregunta</th>
+							<th data-column-id="ds_answer">Respuesta</th>
 							<th data-column-id="editQuestion" data-formatter="commandEdit" data-sortable="false">Editar</th>
 							<th data-column-id="deleteQuestion" data-formatter="commandDelete" data-sortable="false">Eliminar</th>
 						</tr>
@@ -129,10 +129,22 @@
                             "Access-Control-Allow-Origin": "*"
                         },
                         success: function(result, status, xhr){
-                            console.log(result);
-                            cleanForm();
-                            setAlert('Exito!', 'Información gestionada correctamente', 'green');
-                            $('#modalForm').modal('toggle');
+                            
+                            try {
+                                var r = JSON.parse(result);
+                                if (r.estado === 200) {
+                                    cleanForm();
+                                    setAlert('Exito!', 'Información gestionada correctamente', 'green');
+                                    $('#modalForm').modal('toggle');
+                                } else {
+                                    setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                                }
+                            } catch(err) {
+                                console.log('error: ', err);
+                                console.log('result: ', result);
+                                setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                            }
+                            
                         },
                         error: function(xhr, status, error){
                             setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
@@ -152,9 +164,8 @@
             });
         
             $( document ).ready(function() {
-                $("#gridPreguntas").bootgrid();
 				
-                var gridExamenes = $("#gridExamenes").bootgrid({
+                var gridPreguntas = $("#gridPreguntas").bootgrid({
                     ajax: true,
                     url: urlAjax,
                     rowCount: 10,
@@ -171,11 +182,11 @@
                         }
                     }
                 }).on("loaded.rs.jquery.bootgrid", function(){
-                    gridExamenes.find(".command-edit").on("click", function(e){
+                    gridPreguntas.find(".command-edit").on("click", function(e){
                         var codigo = $(this).data("row-id");
                         // consultarExamenSeleccionado(codigo);
                     });
-                    gridExamenes.find(".command-delete").on("click", function(e){
+                    gridPreguntas.find(".command-delete").on("click", function(e){
                         var codigo = $(this).data("row-id");
                         eliminarExamenSeleccionado(codigo);
                     });

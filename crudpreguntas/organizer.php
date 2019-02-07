@@ -26,16 +26,16 @@
     include($urlBase . "\updateQuestion.php");
 
     $option = $_POST["option"];
-    $questionId = $_POST["questionId"];
-    $question = $_POST["question"];
-    $answer = $_POST["answer"];
+    $questionId = isset($_POST["questionId"]) ? $_POST["questionId"] : "";
+    $question = isset($_POST["question"]) ? $_POST["question"] : "";
+    $answer = isset($_POST["answer"]) ? $_POST["answer"] : "";
 
     switch ($option) {
         case 'createquestion':
             echo CreateQuestion($questionId, $question, $answer);
         break;
         case 'readquestion':
-            echo ReadQuestion();
+            echo ReadQuestion($_POST["current"], $_POST["rowCount"]);
         break;
         case 'updatequestion':
             echo UpdateQuestion($questionId, $question, $answer);

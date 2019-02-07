@@ -23,8 +23,8 @@
             return $this->db;
         }
 
-        public function getAll() {
-            $query = $this->db->query("SELECT * FROM " . $this->table . " ORDER BY id DESC");
+        public function getAll($order) {
+            $query = $this->db->query("SELECT * FROM " . $this->table . " ORDER BY '" . $order . "' DESC");
             
             $result = array();
             while ($row = $query->fetch_object()) {
