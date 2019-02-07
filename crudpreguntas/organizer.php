@@ -32,19 +32,19 @@
 
     switch ($option) {
         case 'createquestion':
-            return CreateQuestion($questionId, $question, $answer);
+            echo CreateQuestion($questionId, $question, $answer);
         break;
         case 'readquestion':
-            return ReadQuestion();
+            echo ReadQuestion();
         break;
         case 'updatequestion':
-            return UpdateQuestion($questionId, $question, $answer);
+            echo UpdateQuestion($questionId, $question, $answer);
         break;
         case 'deletequestion':
-            return DeleteQuestion($questionId);
+            echo DeleteQuestion($questionId);
         break;
         default:
-            return json_encode("ERROR: NO AUTORIZADO");
+            echo json_encode("ERROR: NO AUTORIZADO");
         break;
     }
 
