@@ -158,6 +158,41 @@
                 }
             }
 
+            function deleteInfo(id) {
+                $.post({
+                    url: urlAjax, 
+                    data: {
+                        "option": "deletequestion",
+                        "questionId": id
+                    },
+                    type: "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function(result, status, xhr){
+                        try {
+                            var r = JSON.parse(result);
+                            if (r.estado === 200) {
+                                setAlert('Exito!', 'Información gestionada correctamente', 'green');
+                                $("#gridPreguntas").bootgrid("reload");
+                                $("#gridPreguntas-header").hide();
+                                $(".actions").hide();
+                            } else {
+                                setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                            }
+                        } catch(err) {
+                            console.log('error: ', err);
+                            console.log('result: ', result);
+                            setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                        }
+                        
+                    },
+                    error: function(xhr, status, error){
+                        setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                    }
+                });
+            }
+
             $("#save").click(function() {
                 saveInfo();
             });
@@ -195,8 +230,8 @@
                         $('#modalForm').modal('toggle');
                     });
                     gridPreguntas.find(".command-delete").on("click", function(e){
-                        var codigo = $(this).data("row-id");
-                        eliminarExamenSeleccionado(codigo);
+                        var id = $(this).data("row-id");
+                        deleteInfo(id);
                     });
                 });
 				

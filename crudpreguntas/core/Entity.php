@@ -54,8 +54,10 @@
             return $result;
         }
 
-        public function deleteById($id) {
-            $query  = $this->db->query("DELETE FROM " . $this->table . "WHERE id = '" . $id . "'");
+        public function deleteById($id, $column) {
+            $query = "DELETE FROM " . $this->table . " WHERE " . $column . " = '" . $id . "'";
+            $result  = $this->db->query($query);
+            return $result;
         }
     }
 
