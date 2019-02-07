@@ -4,8 +4,9 @@
     include "./actions/getQuestion.php";
     include "./actions/updateQuestion.php";
 
-    
-    $option = $_GET["option"];
+    var_dump($_GET);
+    var_dump($_POST);
+    $option = $_POST["option"];
 
     switch ($option) {
         case 'createquestion':

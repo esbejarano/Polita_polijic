@@ -22,7 +22,7 @@
 
         public function conect() {
             if($this->driver == "mysql" ||  is_null($this->driver) ) {
-                $conection = mysqli_connect($this->host, $this->user, $this->pass, $this->database );
+                $conection = mysqli_connect($this->host, $this->user, $this->pass, $this->database);
                 $conection->query("SET NAMES '" . $this->chartset . "'");
             }
 

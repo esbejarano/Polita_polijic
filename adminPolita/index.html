@@ -85,6 +85,9 @@
         <script src="./js/libs/jsconfirm/jquery-confirm.min.js"></script>
 		<script src="./js/libs/jquery-bootgrid/jquery.bootgrid.min.js"></script>
         <script>
+
+            var urlAjax = "http://127.0.0.1/organizer.php";
+
             function cleanForm() {
                 $("#question").val("");
                 $("#questionId").val("");
@@ -112,9 +115,25 @@
 
             function saveInfo() {
                 if (this.validateForm()) {
-                    cleanForm();
-                    setAlert('Exito!', 'Información gestionada correctamente', 'green');
-                    $('#modalForm').modal('toggle');
+
+                    $.ajax({
+                        url: urlAjax, 
+                        data: {
+                            "option": $("#questionId").val() === "" ? "createquestion" : "updatequestion",
+                            "questionId": $("#questionId").val(),
+                            "question": $("#question").val(),
+                            "answer": $("#answer").val()
+                        },
+                        success: function(result, status, xhr){
+                            console.log(result);
+                            cleanForm();
+                            setAlert('Exito!', 'Información gestionada correctamente', 'green');
+                            $('#modalForm').modal('toggle');
+                        },
+                        error: function(xhr, status, error){
+                            setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                        }
+                    });                    
                 } else {
                     setAlert('Cuidado!', 'Debe diligenciar la información correspondiente', 'orange');
                 }
@@ -130,34 +149,33 @@
         
             $( document ).ready(function() {
                 $("#gridPreguntas").bootgrid();
-				/*
-					var gridExamenes = $("#gridExamenes").bootgrid({
-						ajax: true,
-						url: urlAjax,
-						rowCount: 10,
-						post: function () {
-							return { option: "consultarInformacionExamen" };
-						},
-						labels: { noResults: "No hay registros" },
-						formatters: {
-							"commandEdit": function(column, row) {
-								return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-pencil\" style=\"font-size: 15px;\"></span></button> ";
-							},
-							"commandDelete": function(column, row) {
-								return "<button type=\"button\" class=\"btn btn-xs btn-default command-delete \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-trash\" style=\"font-size: 15px;\"></span></button> ";
-							}
-						}
-					}).on("loaded.rs.jquery.bootgrid", function(){
-						gridExamenes.find(".command-edit").on("click", function(e){
-							var codigo = $(this).data("row-id");
-							// consultarExamenSeleccionado(codigo);
-						});
-						gridExamenes.find(".command-delete").on("click", function(e){
-							var codigo = $(this).data("row-id");
-							eliminarExamenSeleccionado(codigo);
-						});
-					});
-				*/
+				
+                var gridExamenes = $("#gridExamenes").bootgrid({
+                    ajax: true,
+                    url: urlAjax,
+                    rowCount: 10,
+                    post: function () {
+                        return { option: "readquestion" };
+                    },
+                    labels: { noResults: "No hay registros" },
+                    formatters: {
+                        "commandEdit": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-pencil\" style=\"font-size: 15px;\"></span></button> ";
+                        },
+                        "commandDelete": function(column, row) {
+                            return "<button type=\"button\" class=\"btn btn-xs btn-default command-delete \" data-row-id=\"" + row.codigo + "\"><span class=\"oi oi-trash\" style=\"font-size: 15px;\"></span></button> ";
+                        }
+                    }
+                }).on("loaded.rs.jquery.bootgrid", function(){
+                    gridExamenes.find(".command-edit").on("click", function(e){
+                        var codigo = $(this).data("row-id");
+                        // consultarExamenSeleccionado(codigo);
+                    });
+                    gridExamenes.find(".command-delete").on("click", function(e){
+                        var codigo = $(this).data("row-id");
+                        eliminarExamenSeleccionado(codigo);
+                    });
+                });
 				
 				$("#gridPreguntas-header").hide();
 				$(".actions").hide();
