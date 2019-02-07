@@ -1,8 +1,9 @@
 <?php
-    include "./../core/Model.php";
     
-    function CreateQuestion($data){
-        var_dump($data);
+    
+    function CreateQuestion($questionId, $question, $answer){
+        require_once dirname(__FILE__) . "\..\core\Model.php";
+        var_dump($questionId);
     }
 
 ?>

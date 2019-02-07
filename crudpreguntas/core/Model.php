@@ -1,5 +1,7 @@
 <?php
 
+    include(dirname(__FILE__) . "\Entity.php");
+
     class Model extends Entity {
         private $table;
 

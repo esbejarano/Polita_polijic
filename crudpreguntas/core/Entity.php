@@ -9,7 +9,7 @@
         {
             $this->table = (string) $table;
 
-            require_once './Conection.php';
+            require_once dirname(__FILE__).'\Conection.php';
 
             $this->conection = new Conection();
             $this->db = $this->conection->conect();
