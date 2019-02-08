@@ -275,10 +275,11 @@
 
 .chatbox--empty {
     height: 262px;
+    margin-bottom: 15px;
 }
 
 .chatbox--empty.chatbox--tray {
-    bottom: -212px;
+    bottom: -230px;
 }
 
 .chatbox--empty.chatbox--closed {

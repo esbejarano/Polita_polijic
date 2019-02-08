@@ -1,3 +1,5 @@
+var urlAjax = "http://127.0.0.1/crudpreguntas/organizer.php";
+
 var ws = new WebSocket("ws://localhost:8000");
 
 $(window).on('beforeunload', function(){ ws.close(); });
@@ -27,6 +29,32 @@ function chat_scrolldown() {
 		scrollTop: $(".chatbox__body")[0].scrollHeight 
 	}, 500);
 }
+
+function sendFQ(){
+	$.post({
+		url: urlAjax, 
+		data: {
+			"option": "registerFQ",
+			"mail": $("#inputEmail").val(),
+			"name": $("#inputName").val(),
+			"question": $("#textMesage").val()
+		},
+		type: "POST",
+		headers: {
+			"Access-Control-Allow-Origin": "*"
+		},
+		success: function(result, status, xhr){
+			console.log('result: ', result);
+			console.log('status: ', status);
+			console.log('xhr: ', xhr);
+		},
+		error: function(xhr, status, error){
+			console.log('error: ', error);
+			console.log('status: ', status);
+			console.log('xhr: ', xhr);
+		}
+	});
+}
 	
 $(document).ready(function() {
 		
@@ -47,10 +75,13 @@ $(document).ready(function() {
 	
 	$('.chatbox__message').on('keypress', function(event) {
 		if (event.which === 13 && $(this).val() != ""){
+			
 			var message = $(this).val();
 			$(this).val("");
 			chat_add_message(message, true);
 			ws.send(message);
+			
+			sendFQ();
 		}
 	});
 	

@@ -24,6 +24,7 @@
     include($urlBase . "\deleteQuestion.php");
     include($urlBase . "\getQuestion.php");
     include($urlBase . "\updateQuestion.php");
+    include($urlBase . "\\registerFq.php");
 
     $option = $_POST["option"];
     $questionId = isset($_POST["questionId"]) ? $_POST["questionId"] : "";
@@ -42,6 +43,12 @@
         break;
         case 'deletequestion':
             echo DeleteQuestion($questionId);
+        break;
+        case 'registerFQ':
+            $mail = isset($_POST["mail"]) ? $_POST["mail"] : "";
+            $name = isset($_POST["name"]) ? $_POST["name"] : "";
+            $question = isset($_POST["question"]) ? $_POST["question"] : "";
+            echo RegisterFQ($mail, $name, $question);
         break;
         default:
             echo json_encode("ERROR: NO AUTORIZADO");
