@@ -25,6 +25,7 @@
     include($urlBase . "\getQuestion.php");
     include($urlBase . "\updateQuestion.php");
     include($urlBase . "\\registerFq.php");
+    include($urlBase . "\updateQAFile.php");
 
     $option = $_POST["option"];
     $questionId = isset($_POST["questionId"]) ? $_POST["questionId"] : "";
@@ -33,16 +34,19 @@
 
     switch ($option) {
         case 'createquestion':
-            echo CreateQuestion($questionId, $question, $answer);
+            $result = CreateQuestion($questionId, $question, $answer);
+            echo $result;
         break;
         case 'readquestion':
             echo ReadQuestion($_POST["current"], $_POST["rowCount"]);
         break;
         case 'updatequestion':
-            echo UpdateQuestion($questionId, $question, $answer);
+            $result = UpdateQuestion($questionId, $question, $answer);
+            echo $result;
         break;
         case 'deletequestion':
-            echo DeleteQuestion($questionId);
+            $result = DeleteQuestion($questionId);
+            echo $result;
         break;
         case 'registerFQ':
             $mail = isset($_POST["mail"]) ? $_POST["mail"] : "";
@@ -50,6 +54,9 @@
             $question = isset($_POST["question"]) ? $_POST["question"] : "";
             echo RegisterFQ($mail, $name, $question);
         break;
+        case 'updateQAFile':
+            updateQAFile();
+        break; 
         default:
             echo json_encode("ERROR: NO AUTORIZADO");
         break;

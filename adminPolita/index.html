@@ -139,6 +139,7 @@
                                     $("#gridPreguntas").bootgrid("reload");
                                     $("#gridPreguntas-header").hide();
 				                    $(".actions").hide();
+                                    updateQAFile();
                                 } else {
                                     setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
                                 }
@@ -177,6 +178,7 @@
                                 $("#gridPreguntas").bootgrid("reload");
                                 $("#gridPreguntas-header").hide();
                                 $(".actions").hide();
+                                updateQAFile();
                             } else {
                                 setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
                             }
@@ -189,6 +191,21 @@
                     },
                     error: function(xhr, status, error){
                         setAlert('Error!', 'Ocurrio un error, por favor contacte con el administrador o intente mas tarde', 'red');
+                    }
+                });
+            }
+
+            function updateQAFile(){
+                $.post({
+                    url: urlAjax, 
+                    data: { "option": "updateQAFile" },
+                    type: "POST",
+                    headers: { "Access-Control-Allow-Origin": "*" },
+                    success: function(result, status, xhr){
+                        console.log(result, status, xhr);
+                    },
+                    error: function(xhr, status, error){
+                        console.log(xhr, status, error);
                     }
                 });
             }
