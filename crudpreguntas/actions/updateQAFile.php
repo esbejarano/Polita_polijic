@@ -9,7 +9,11 @@
         try {
             $result = $model->getAll($table['id']);
             $results = json_decode(json_encode($result), true);
-            $file = $folder["urlFile"] . "\\temp.yml";
+            $file = $folder["urlFile"] . "\\poli.yml";
+            if (file_exists($file)) {
+                unlink($file);
+            }
+
             if (!file_exists($file)){
                 $newFile = fopen($file, 'x+');
 
@@ -25,6 +29,7 @@
                 }
                 fclose($newFile);
             }
+            exec("python " . $folder["urlFile"] . '\..\chatbot_train.py' );
         } catch(Exception $e) {
             
         }
