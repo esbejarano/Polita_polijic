@@ -30,14 +30,15 @@ function chat_scrolldown() {
 	}, 500);
 }
 
-function sendFQ(){
+function sendFQ(message){
+	
 	$.post({
 		url: urlAjax, 
 		data: {
 			"option": "registerFQ",
 			"mail": $("#inputEmail").val(),
 			"name": $("#inputName").val(),
-			"question": $("#textMesage").val()
+			"question": message
 		},
 		type: "POST",
 		headers: {
@@ -81,7 +82,7 @@ $(document).ready(function() {
 			chat_add_message(message, true);
 			ws.send(message);
 			
-			sendFQ();
+			sendFQ(message);
 		}
 	});
 	
